@@ -8,6 +8,8 @@ import Write from "./pages/Write";
 import Single from "./pages/Single";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { Container, CssBaseline } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 // https://reactrouter.com/en/main/components/outlet
 const Layout = () => {
@@ -51,9 +53,15 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const theme = createTheme();
   return (
     <div className="App">
-      <RouterProvider router={router} />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Container component="main" width="auto">
+          <RouterProvider router={router} />
+        </Container>
+      </ThemeProvider>
     </div>
   );
 }
