@@ -24,22 +24,22 @@ const Navbar = () => {
             </Link>
           </Button>
           <Button color="inherit">
-            <Link to="/employee" className="navbar-link">
+            <Link to="/" className="navbar-link">
               AWS
             </Link>
           </Button>
           <Button color="inherit">
-            <Link to="/user" className="navbar-link">
+            <Link to="/" className="navbar-link">
               GCP
             </Link>
           </Button>
           <Button color="inherit">
-            <Link to="/room" className="navbar-link">
+            <Link to="/" className="navbar-link">
               AZUR
             </Link>
           </Button>
           <Button color="inherit">
-            <Link to="/reservation" className="navbar-link">
+            <Link to="/" className="navbar-link">
               Operating systems
             </Link>
           </Button>
