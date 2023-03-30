@@ -14,7 +14,7 @@ const Navbar = () => {
       <AppBar position="static">
         <Toolbar>
           <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <DeveloperModeIcon /> <Box sx={{ ml: 1 }}>Bloging app</Box>
+            <DeveloperModeIcon /> <Box sx={{ ml: 1 }}>Blogging app</Box>
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
 
