@@ -42,6 +42,10 @@
   }
 }
 
+img {
+  max-width: 500px;
+}
+
 footer {
   margin-top: 100px;
   border-top: 1px solid #dddddd;
