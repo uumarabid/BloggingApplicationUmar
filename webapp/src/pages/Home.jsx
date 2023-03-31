@@ -37,22 +37,22 @@ const Home = () => {
   ];
   return (
     <div>
-      <Paper id="maincontent" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-        <h1>Welcome programmers</h1>
-        {posts.map((post) => (
-          <div key={post.id}>
-            <img src={post.img} alt="ipsum img" />
+      {/* <Paper id="maincontent" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}> */}
+      <h1>Welcome programmers</h1>
+      {posts.map((post) => (
+        <div key={post.id}>
+          <img src={post.img} alt="ipsum img" />
 
-            <Link to={`/post/${post.id}`}>
-              <h2>{post.title}</h2>
-            </Link>
-            <p>{post.desc}</p>
-            <Button variant="contained" sx={{ mb: 2 }}>
-              Read more
-            </Button>
-          </div>
-        ))}
-      </Paper>
+          <Link to={`/post/${post.id}`}>
+            <h2>{post.title}</h2>
+          </Link>
+          <p>{post.desc}</p>
+          <Button variant="contained" sx={{ mb: 2 }}>
+            Read more
+          </Button>
+        </div>
+      ))}
+      {/* </Paper> */}
     </div>
   );
 };

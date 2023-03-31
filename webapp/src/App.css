@@ -73,3 +73,13 @@ p {
 .manu-img {
   width: 100%;
 }
+
+.quill-title {
+  width: 100%;
+  height: 300px;
+}
+.react-quill {
+  height: 300px;
+  overflow: scroll;
+  padding-top: 5px;
+}
