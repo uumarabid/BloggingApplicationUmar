@@ -28,6 +28,11 @@
   color: #61dafb;
 }
 
+.navbar-link {
+  color: white;
+  text-decoration: none;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +40,46 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+img {
+  max-width: 500px;
+}
+
+footer {
+  margin-top: 100px;
+  border-top: 1px solid #dddddd;
+  padding: 30px;
+}
+
+.post-img {
+  width: 100%;
+  height: 300px;
+  /* object-fit: cover; */
+}
+
+.user-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  /* object-fit: cover; */
+}
+
+p {
+  text-align: justify;
+  /* line-height: 30px; */
+}
+
+.manu-img {
+  width: 100%;
+}
+
+.quill-title {
+  width: 100%;
+  height: 300px;
+}
+.react-quill {
+  height: 300px;
+  overflow: scroll;
+  padding-top: 5px;
 }
