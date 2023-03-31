@@ -3,11 +3,11 @@ import { Grid, Paper, Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Link } from "react-router-dom";
+import Menu from "../components/Menu";
 
 const Single = () => {
   return (
     <Paper id="maincontent" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-      <h1>Hi</h1>
       <Grid container spacing={2}>
         <Grid item xs={6} md={8}>
           <img
@@ -45,18 +45,10 @@ const Single = () => {
             type specimen book.
           </p>
         </Grid>
+
         <Grid item xs={6} md={4}>
-          xs=6 md=4
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-            type specimen book.
-          </p>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-            standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-            type specimen book.
-          </p>
+          {/* call the manu componenet here */}
+          <Menu />
         </Grid>
       </Grid>
     </Paper>
