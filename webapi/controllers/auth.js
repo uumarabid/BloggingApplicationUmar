@@ -6,10 +6,10 @@ export const register = (req, res) => {
   const q = "SELECT * FROM users WHERE `email` IS NULL OR `username` = ?";
   console.log(q);
 
-  db.query(q, [(req.body.email, req.body.name)], (err, data) => {
+  db.query(q, [(req.body.email, req.body.username)], (err, data) => {
     if (err) return res.json(err);
     // if user exits
-    if (data.length) return res.json("User already exist");
+    if (data.length) return res.json("User already exists");
 
     // hash a password and create a user
     // https://www.npmjs.com/package/bcryptjs
