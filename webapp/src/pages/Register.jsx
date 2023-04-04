@@ -11,6 +11,8 @@ const Register = () => {
     password: "",
   });
 
+  const [err, setError] = useState(null);
+
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -21,7 +23,8 @@ const Register = () => {
       const res = await axios.post("http://localhost:3001/auth/register", inputs);
       console.log(res);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      setError(err.response.data);
     }
 
     // console.log(res);
@@ -75,6 +78,12 @@ const Register = () => {
                 Register
               </Button>
             </Grid>
+
+            {/* fix this */}
+            <Grid item xs={12}>
+              {err && <span>{err}</span>}
+            </Grid>
+
             <Grid item xs={12}>
               <span>
                 Already have an account? <Link to={"/login"}>Login</Link>
