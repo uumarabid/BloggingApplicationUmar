@@ -17,8 +17,14 @@ const Register = () => {
   const handleSubmit = async (e) => {
     //prevent from refreshing on click
     e.preventDefault();
-    const res = await axios.post("http://localhost:3001/auth/register", inputs);
-    console.log(res);
+    try {
+      const res = await axios.post("http://localhost:3001/auth/register", inputs);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+
+    // console.log(res);
   };
   return (
     <Container component="main" maxWidth="xs">
