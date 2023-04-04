@@ -1,7 +1,7 @@
 import { Button, FormControl, Grid, Paper, TextField } from "@mui/material";
 import { Container } from "@mui/system";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Register = () => {
@@ -13,6 +13,9 @@ const Register = () => {
 
   const [err, setError] = useState(null);
 
+  // https://reactrouter.com/en/main/hooks/use-navigate
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -20,8 +23,8 @@ const Register = () => {
     //prevent from refreshing on click
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3001/auth/register", inputs);
-      console.log(res);
+      await axios.post("http://localhost:3001/auth/register", inputs);
+      navigate("/login");
     } catch (err) {
       // console.log(err);
       setError(err.response.data);
