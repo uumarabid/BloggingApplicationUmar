@@ -11,7 +11,7 @@ import { AuthContext } from "../context/authContext";
 import { useContext } from "react";
 
 const Navbar = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, logout } = useContext(AuthContext);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -54,7 +54,13 @@ const Navbar = () => {
           </Button>
           <Button color="inherit">
             <Link to="/" className="navbar-link">
-              <span>Lougout</span>
+              {currentUser ? (
+                <span onClick={logout}>Lougout</span>
+              ) : (
+                <Link to={"/login"} className="navbar-link">
+                  Login
+                </Link>
+              )}
             </Link>
           </Button>
           <Button color="inherit">
