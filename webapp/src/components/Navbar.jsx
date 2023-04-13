@@ -7,8 +7,12 @@ import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import DeveloperModeIcon from "@mui/icons-material/DeveloperMode";
+import { AuthContext } from "../context/authContext";
+import { useContext } from "react";
 
 const Navbar = () => {
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -45,7 +49,7 @@ const Navbar = () => {
           </Button>
           <Button color="inherit">
             <Link to="/" className="navbar-link">
-              <span>Umar</span>
+              <span>{currentUser?.username}</span>
             </Link>
           </Button>
           <Button color="inherit">
