@@ -1,8 +1,9 @@
 import { Button, FormControl, Grid, Paper, TextField } from "@mui/material";
 import { Container } from "@mui/system";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext.js";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -15,6 +16,9 @@ const Login = () => {
   // https://reactrouter.com/en/main/hooks/use-navigate
   const navigate = useNavigate();
 
+  // call login function here
+  const { login } = useContext(AuthContext);
+
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -22,7 +26,9 @@ const Login = () => {
     //prevent from refreshing on click
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3001/auth/login", inputs);
+      // login function from authContext
+      await login(inputs);
+      // await axios.post("http://localhost:3001/auth/login", inputs);
       navigate("/");
     } catch (err) {
       // console.log(err);
