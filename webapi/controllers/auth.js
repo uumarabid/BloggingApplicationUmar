@@ -1,5 +1,6 @@
 import { db } from "../db.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 export const register = (req, res) => {
   //check existing user
@@ -40,6 +41,25 @@ export const login = (req, res) => {
     const isPasswordCorrect = bcrypt.compareSync(req.body.password, data[0].password);
 
     if (!isPasswordCorrect) return res.status(400).json("Wrong username or password.!");
+
+    // send user information that identifies user
+    // store this token in web cookie to match the author of the post
+    // https://www.npmjs.com/package/jsonwebtoken
+    const token = jwt.sign({ id: data[0].id }, "jwtkey");
+
+    // separate password from other info
+    const { password, ...other } = data[0];
+
+    // return user information and send the token as a cookie
+    res
+      .cookie("access_token", token, {
+        // extra security, anny script in the browser or application can not access this cookie directly
+        httpOnly: true,
+      })
+      // thsi approch includes password in the data, used second approach
+      // .status(200).json(data[0]);
+      .status(200)
+      .json(other);
   });
 };
 
