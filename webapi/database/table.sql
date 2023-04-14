@@ -23,3 +23,6 @@ CREATE TABLE `blog`.`posts` (
     REFERENCES `blog`.`users` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
+
+    ALTER TABLE `blog`.`posts` 
+    ADD COLUMN `cat` VARCHAR(45) NULL AFTER `userId`;
