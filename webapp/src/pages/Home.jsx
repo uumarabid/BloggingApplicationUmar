@@ -1,16 +1,20 @@
 import { Button, Paper } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+
+  // use location to get to cat string
+  const cat = useLocation().search;
+  // console.log(location);
 
   // create a async function inside use efffect
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:3001/posts");
+        const res = await axios.get(`http://localhost:3001/posts${cat}`);
         // debugger;
         console.log(res.data);
         setPosts(res.data);
@@ -19,7 +23,7 @@ const Home = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [cat]);
   // const posts = [
   //   {
   //     id: 1,
@@ -63,7 +67,7 @@ const Home = () => {
           <Link to={`/post/${post.id}`}>
             <h2>{post.title}</h2>
           </Link>
-          <p>{post.desc}</p>
+          <p>{post.description}</p>
           <Button variant="contained" sx={{ mb: 2 }}>
             Read more
           </Button>
