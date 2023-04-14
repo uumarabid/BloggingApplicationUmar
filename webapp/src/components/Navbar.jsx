@@ -18,32 +18,35 @@ const Navbar = () => {
       <AppBar position="static">
         <Toolbar>
           <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <DeveloperModeIcon /> <Box sx={{ ml: 1 }}>Blogging app</Box>
+            <DeveloperModeIcon />{" "}
+            <Link to="/" className="navbar-link">
+              <Box sx={{ ml: 1 }}>Blogging app</Box>
+            </Link>
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
 
           <Button color="inherit">
-            <Link to="/" className="navbar-link">
+            <Link to="/?cat=programming" className="navbar-link">
               Programming
             </Link>
           </Button>
           <Button color="inherit">
-            <Link to="/" className="navbar-link">
+            <Link to="/?cat=AWS" className="navbar-link">
               AWS
             </Link>
           </Button>
           <Button color="inherit">
-            <Link to="/" className="navbar-link">
+            <Link to="/?cat=GCP" className="navbar-link">
               GCP
             </Link>
           </Button>
           <Button color="inherit">
-            <Link to="/" className="navbar-link">
+            <Link to="/?cat=AZUR" className="navbar-link">
               AZUR
             </Link>
           </Button>
           <Button color="inherit">
-            <Link to="/" className="navbar-link">
+            <Link to="/?cat=operatingSystem" className="navbar-link">
               Operating systems
             </Link>
           </Button>
