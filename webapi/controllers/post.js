@@ -14,11 +14,13 @@ export const getPosts = (req, res) => {
 
 export const getPost = (req, res) => {
   // find post using id
+  // console.log(req);
+  // const id = req.query.id;
   const q =
-    "SELECT `username`, `title`, `description`, `p.img`, `cat`, `` FROM users u JOIN posts p ON u.id=p.userId WHERE p.id = ?";
-
+    "SELECT `username`, `title`, `description`, p.img, u.img AS userImg, `cat`, `date` FROM users u JOIN posts p ON u.id=p.userId WHERE p.id = ?";
+  // console.log(q);
   // post id => (prams) id in url
-  db.query(q, [req.prams.id], (err, data) => {
+  db.query(q, [req.params.id], (err, data) => {
     if (err) return res.json(err);
 
     return res.status(200).json(data[0]);

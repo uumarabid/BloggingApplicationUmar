@@ -42,19 +42,18 @@ const Single = () => {
         <Grid item xs={6} md={8}>
           <img
             // ? will not give any error while loading
-            src={post?.img}
+            src={post.img}
             alt="new"
             className="post-img"
           />
           <Grid item xs={6} md={6}>
             <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", ml: 3 }}>
-              <img
-                src="https://www.freecodecamp.org/news/content/images/size/w2000/2022/11/what-is-programming.png"
-                alt="new"
-                className="user-img "
-              />
+              {post.userImg && <img src={post.userImg} alt="new" className="user-img " />}
+
               <span>{post.username}</span>
+
               <p>Posted {moment(post.date).fromNow()}</p>
+
               {currentUser.username === post.username && (
                 <>
                   <Link to={`/write`}>
