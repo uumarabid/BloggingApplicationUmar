@@ -13,7 +13,16 @@ export const getPosts = (req, res) => {
 };
 
 export const getPost = (req, res) => {
-  res.json("New post is added successfully.");
+  // find post using id
+  const q =
+    "SELECT `username`, `title`, `description`, `p.img`, `cat`, `` FROM users u JOIN posts p ON u.id=p.userId WHERE p.id = ?";
+
+  // post id => (prams) id in url
+  db.query(q, [req.prams.id], (err, data) => {
+    if (err) return res.json(err);
+
+    return res.status(200).json(data[0]);
+  });
 };
 
 export const addPost = (req, res) => {
