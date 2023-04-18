@@ -52,6 +52,7 @@ const Single = () => {
 
               <span>{post.username}</span>
 
+              {/* moment library */}
               <p>Posted {moment(post.date).fromNow()}</p>
 
               {currentUser.username === post.username && (
