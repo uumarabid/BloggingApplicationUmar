@@ -13,7 +13,7 @@ import bodyParser from "body-parser"; //  using this package to receive data in 
 const app = express().use(
   cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })
 );
