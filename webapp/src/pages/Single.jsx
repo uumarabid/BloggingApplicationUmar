@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Grid, Paper, Box } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Menu from "../components/Menu";
 import axios from "axios";
 import moment from "moment";
@@ -13,7 +13,8 @@ const Single = () => {
 
   // use location to get to cat string
   const location = useLocation();
-  // console.log(location);
+
+  const navigate = useNavigate();
 
   // use split method to get to the post id index 2 in url
   const postId = location.pathname.split("/")[2];
@@ -35,6 +36,15 @@ const Single = () => {
     };
     fetchData();
   }, [postId]);
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:3001/posts/${postId}`);
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Paper id="maincontent" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
@@ -60,7 +70,9 @@ const Single = () => {
                   <Link to={`/write`}>
                     <EditIcon />
                   </Link>
-                  <DeleteForeverIcon />{" "}
+                  <Link>
+                    <DeleteForeverIcon onClick={handleDelete} />
+                  </Link>
                 </>
               )}
             </Box>
