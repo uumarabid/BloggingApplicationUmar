@@ -85,7 +85,7 @@ const Single = () => {
 
         <Grid item xs={6} md={4}>
           {/* call the manu componenet here */}
-          <Menu />
+          <Menu cat={post.cat} />
         </Grid>
       </Grid>
     </Paper>
