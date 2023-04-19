@@ -72,5 +72,23 @@ export const deletePost = (req, res) => {
 };
 
 export const updatePost = (req, res) => {
-  res.json("New post is added successfully.");
+  const token = req.cookies.access_token;
+  if (!token) return res.status(401).json("Not authenticated");
+
+  // verify token if its valid or not
+  // userinfo => auth => const token = jwt.sign({ id: data[0].id }, "jwtkey");
+  jwt.verify(token, "jwtkey", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid.");
+
+    const postId = req.params.id;
+
+    const updateQuery = "UPDATE posts SET `title`=?, `description`= ?, `img`= ?, `cat`= ? WHERE `id`= ? AND `userId`= ?";
+    const values = [req.body.title, req.body.description, req.body.img, req.body.cat];
+
+    db.query(updateQuery, [...values, postId, userInfo.id], (err, data) => {
+      if (err) return res.status(500).json(err);
+
+      return res.json("Post has been updated.");
+    });
+  });
 };
