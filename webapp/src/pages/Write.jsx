@@ -17,6 +17,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import moment from "moment";
 
 const Write = () => {
   const state = useLocation().state;
@@ -41,7 +42,26 @@ const Write = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    upload();
+    const imgUrl = upload();
+
+    try {
+      state
+        ? await axios.put(`http://localhost:3001/post/${state.id}`, {
+            title,
+            description: value,
+            cat,
+            img: file ? imgUrl : "",
+          })
+        : await axios.post(`http://localhost:3001/post/`, {
+            title,
+            description: value,
+            cat,
+            img: file ? imgUrl : "",
+            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+          });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

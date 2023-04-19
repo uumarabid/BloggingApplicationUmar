@@ -18,7 +18,7 @@ export const getPost = (req, res) => {
   // console.log(req);
   // const id = req.query.id;
   const selectCustomQuery =
-    "SELECT `username`, `title`, `description`, p.img, u.img AS userImg, `cat`, `date` FROM users u JOIN posts p ON u.id=p.userId WHERE p.id = ?";
+    "SELECT p.id, `username`, `title`, `description`, p.img, u.img AS userImg, `cat`, `date` FROM users u JOIN posts p ON u.id=p.userId WHERE p.id = ?";
   // console.log(selectCustomQuery);
   // post id => (prams) id in url
   db.query(selectCustomQuery, [req.params.id], (err, data) => {
