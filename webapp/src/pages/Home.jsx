@@ -1,10 +1,11 @@
-import { Button, Paper } from "@mui/material";
+import { Button, FormControl, Grid, Paper, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
   // use location to get to cat string
   const cat = useLocation().search;
@@ -18,49 +19,46 @@ const Home = () => {
         // debugger;
         console.log(res.data);
         setPosts(res.data);
+        setFilteredPosts(res.data);
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
   }, [cat]);
-  // const posts = [
-  //   {
-  //     id: 1,
-  //     title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  //     desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  //     img: "https://www.freecodecamp.org/news/content/images/size/w2000/2022/11/what-is-programming.png",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  //     desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  //     img: "https://www.freecodecamp.org/news/content/images/size/w1000/2022/12/main-image.png",
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  //     desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  //     img: "https://www.freecodecamp.org/news/content/images/size/w1000/2022/12/what-is-a-programming-language.png",
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  //     desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  //     img: "https://www.freecodecamp.org/news/content/images/size/w1600/2022/12/Screen-Shot-2022-12-02-at-9.06.50-PM.png",
-  //   },
-  //   {
-  //     id: 5,
-  //     title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  //     desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  //     img: "https://www.freecodecamp.org/news/content/images/size/w1000/2022/12/binary.png",
-  //   },
-  // ];
+
+  // https://dev.to/mar1anna/create-a-search-bar-with-react-and-material-ui-4he
+  const handleSearchChange = (e) => {
+    const searchItem = e.target.value;
+    let filteredPosts = posts;
+    if (searchItem) {
+      filteredPosts = posts.filter((x) => x.title.toLowerCase().includes(searchItem.toLowerCase()));
+    }
+    setFilteredPosts(filteredPosts);
+  };
+
   return (
     <div>
       {/* <Paper id="maincontent" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}> */}
       <h1>Welcome programmers</h1>
-      {posts.map((post) => (
+      <Grid container rowSpacing={2}>
+        <Grid item xs={8}></Grid>
+        <Grid item xs={4}>
+          <FormControl sx={{ m: 3 }}>
+            <TextField
+              type="search"
+              id="search"
+              name="search"
+              placeholder="Search post"
+              label="search"
+              variant="outlined"
+              onChange={handleSearchChange}
+            />
+          </FormControl>
+        </Grid>
+      </Grid>
+
+      {filteredPosts.map((post) => (
         <div key={post.id}>
           <img src={post.img} alt="ipsum img" />
 
