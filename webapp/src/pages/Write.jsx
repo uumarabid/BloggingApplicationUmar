@@ -18,6 +18,9 @@ import "react-quill/dist/quill.snow.css";
 
 const Write = () => {
   const [value, setValue] = useState("");
+  const [tilte, setTilte] = useState("");
+  const [file, setFile] = useState("");
+  const [cat, setCat] = useState("");
 
   return (
     <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
@@ -32,6 +35,7 @@ const Write = () => {
                 placeholder="Enter tile"
                 label="Title"
                 variant="outlined"
+                onChange={(e) => setTilte(e.target.value)}
                 // className="quill-title"
               />
             </Grid>
@@ -52,7 +56,7 @@ const Write = () => {
           <Grid item xs={6} md={12}>
             <FormControl>
               {/* fix this later */}
-              <Input type="file" id="file" name="" />
+              <Input type="file" id="file" name="" onChange={(e) => setFile(e.target.files[0])} />
               <InputLabel htmlFor="file">Upload image</InputLabel>
             </FormControl>
           </Grid>
@@ -70,12 +74,35 @@ const Write = () => {
 
           <FormControl>
             <FormLabel id="demo-radio-buttons-group-label">Category</FormLabel>
-            <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="programmer" name="cat">
-              <FormControlLabel value="programmer" control={<Radio />} label="Programmer" id="programmer" />
-              <FormControlLabel value="AWS" control={<Radio />} label="AWS" id="AWS" />
-              <FormControlLabel value="GCP" control={<Radio />} label="GCP" id="GCP" />
-              <FormControlLabel value="AZUR" control={<Radio />} label="AZUR" id="AZUR" />
-              <FormControlLabel value="opersys" control={<Radio />} label="Operating system" id="opersys" />
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="programmer"
+              name="cat"
+              onChange={(e) => setCat(e.target.value)}
+            >
+              <FormControlLabel
+                value="programmer"
+                control={<Radio />}
+                label="Programmer"
+                id="programmer"
+                onChange={(e) => setCat(e.target.value)}
+              />
+              <FormControlLabel value="AWS" control={<Radio />} label="AWS" id="AWS" onChange={(e) => setCat(e.target.value)} />
+              <FormControlLabel value="GCP" control={<Radio />} label="GCP" id="GCP" onChange={(e) => setCat(e.target.value)} />
+              <FormControlLabel
+                value="AZUR"
+                control={<Radio />}
+                label="AZUR"
+                id="AZUR"
+                onChange={(e) => setCat(e.target.value)}
+              />
+              <FormControlLabel
+                value="opersys"
+                control={<Radio />}
+                label="Operating system"
+                id="opersys"
+                onChange={(e) => setCat(e.target.value)}
+              />
             </RadioGroup>
           </FormControl>
         </Grid>
