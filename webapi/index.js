@@ -4,6 +4,7 @@ import authRoutes from "./routes/auth.js";
 import usersRoutes from "./routes/users.js";
 import postsRoutes from "./routes/posts.js";
 import cookieParser from "cookie-parser";
+import multer from "multer";
 
 //https://www.npmjs.com/package/cors
 import cors from "cors"; // need this package for cross origin requests, (for any request that comes from outside of the application)
@@ -25,6 +26,16 @@ app.get("/", (req, res) => {
 
 app.use(express.json());
 app.use(cookieParser());
+
+// https://www.npmjs.com/package/multer
+// use multer for save img on server
+
+const upload = multer({ dest: "./uploads/" });
+
+app.post("/upload/", upload.single("file"), function (req, res) {
+  res.status(200).json("Image has been uploaded.");
+});
+
 app.use("/auth", authRoutes);
 app.use("/user", usersRoutes);
 app.use("/posts", postsRoutes);
