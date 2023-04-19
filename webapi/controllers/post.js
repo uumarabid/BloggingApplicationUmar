@@ -22,13 +22,31 @@ export const getPost = (req, res) => {
   // console.log(selectCustomQuery);
   // post id => (prams) id in url
   db.query(selectCustomQuery, [req.params.id], (err, data) => {
-    if (err) return res.json(err);
+    if (err) return res.status(500).json(err);
 
     return res.status(200).json(data[0]);
   });
 };
 
-export const addPost = (req, res) => {};
+export const addPost = (req, res) => {
+  const token = req.cookies.access_token;
+  if (!token) return res.status(401).json("Not authenticated");
+
+  // verify token if its valid or not
+  // userinfo => auth => const token = jwt.sign({ id: data[0].id }, "jwtkey");
+  jwt.verify(token, "jwtkey", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid.");
+
+    const insertQuery = "INSERT INTO posts(`title`,`description`,`img`,`cat`,`date`,`userId`) VALUES (?)";
+    const values = [req.body.title, req.body.description, req.body.img, req.body.cat, req.body.date, userInfo.id];
+
+    db.query(insertQuery, [values], (err, data) => {
+      if (err) return res.status(500).json(err);
+
+      return res.json("Post has been created.");
+    });
+  });
+};
 
 export const deletePost = (req, res) => {
   // check json web token first in cookies & post not belongs to user => cannot delete post
