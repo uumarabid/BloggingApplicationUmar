@@ -27,13 +27,28 @@ app.get("/", (req, res) => {
 app.use(express.json());
 app.use(cookieParser());
 
+// use multer storage instead of destination and give specific name to img
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "../webapp/public/upload");
+  },
+  filename: function (req, file, cb) {
+    // to prevent overridding the same img use date.now()
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
 // https://www.npmjs.com/package/multer
 // use multer for save img on server
 
-const upload = multer({ dest: "./uploads/" });
+// const upload = multer({ dest: "./uploads/" });
 
 app.post("/upload/", upload.single("file"), function (req, res) {
-  res.status(200).json("Image has been uploaded.");
+  const file = req.file;
+  res.status(200).json(file.filename);
 });
 
 app.use("/auth", authRoutes);
