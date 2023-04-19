@@ -67,7 +67,7 @@ const Single = () => {
 
               {currentUser.username === post.username && (
                 <>
-                  <Link to={`/write`}>
+                  <Link to={"/write?edit=2"} state={post}>
                     <EditIcon />
                   </Link>
                   <Link>

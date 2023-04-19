@@ -16,12 +16,15 @@ import {
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const Write = () => {
-  const [value, setValue] = useState("");
-  const [tilte, setTilte] = useState("");
-  const [file, setFile] = useState("");
-  const [cat, setCat] = useState("");
+  const state = useLocation().state;
+
+  const [value, setValue] = useState(state?.title || "");
+  const [title, setTitle] = useState(state?.description || "");
+  const [file, setFile] = useState(null);
+  const [cat, setCat] = useState(state?.cat || "");
 
   const upload = async () => {
     try {
@@ -54,7 +57,8 @@ const Write = () => {
                 placeholder="Enter tile"
                 label="Title"
                 variant="outlined"
-                onChange={(e) => setTilte(e.target.value)}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 // className="quill-title"
               />
             </Grid>
@@ -102,24 +106,41 @@ const Write = () => {
               <FormControlLabel
                 value="programmer"
                 control={<Radio />}
+                checked={cat === "programmer"}
                 label="Programmer"
                 id="programmer"
                 onChange={(e) => setCat(e.target.value)}
               />
-              <FormControlLabel value="AWS" control={<Radio />} label="AWS" id="AWS" onChange={(e) => setCat(e.target.value)} />
-              <FormControlLabel value="GCP" control={<Radio />} label="GCP" id="GCP" onChange={(e) => setCat(e.target.value)} />
+              <FormControlLabel
+                value="AWS"
+                control={<Radio />}
+                checked={cat === "AWS"}
+                label="AWS"
+                id="AWS"
+                onChange={(e) => setCat(e.target.value)}
+              />
+              <FormControlLabel
+                value="GCP"
+                control={<Radio />}
+                checked={cat === "GCP"}
+                label="GCP"
+                id="GCP"
+                onChange={(e) => setCat(e.target.value)}
+              />
               <FormControlLabel
                 value="AZUR"
                 control={<Radio />}
+                checked={cat === "AZUR"}
                 label="AZUR"
                 id="AZUR"
                 onChange={(e) => setCat(e.target.value)}
               />
               <FormControlLabel
-                value="opersys"
+                value="OperatingSystem"
                 control={<Radio />}
+                checked={cat === "OperatingSystem"}
                 label="Operating system"
-                id="opersys"
+                id="OperatingSystem"
                 onChange={(e) => setCat(e.target.value)}
               />
             </RadioGroup>
