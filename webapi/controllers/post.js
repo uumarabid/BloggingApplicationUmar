@@ -33,12 +33,12 @@ export const addPost = (req, res) => {};
 export const deletePost = (req, res) => {
   // check json web token first in cookies & post not belongs to user => cannot delete post
   const token = req.cookies.access_token;
-  if (!token) return res.json("Not authenticated");
+  if (!token) return res.status(401).json("Not authenticated");
 
   // verify token if its valid or not
   // userinfo => auth => const token = jwt.sign({ id: data[0].id }, "jwtkey");
   jwt.verify(token, "jwtkey", (err, userInfo) => {
-    if (err) return res.json("Token is not valid.");
+    if (err) return res.status(403).json("Token is not valid.");
 
     // if token is valid then delete the post
     // take post id first

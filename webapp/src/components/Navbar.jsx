@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import DeveloperModeIcon from "@mui/icons-material/DeveloperMode";
-import { AuthContext } from "../context/authContext";
+import { AuthContext } from "../context/authContext.js";
 import { useContext } from "react";
 
 const Navbar = () => {
