@@ -42,17 +42,17 @@ const Write = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const imgUrl = upload();
+    const imgUrl = await upload();
 
     try {
       state
-        ? await axios.put(`http://localhost:3001/post/${state.id}`, {
+        ? await axios.put(`http://localhost:3001/posts/${state.id}`, {
             title,
             description: value,
             cat,
             img: file ? imgUrl : "",
           })
-        : await axios.post(`http://localhost:3001/post/`, {
+        : await axios.post(`http://localhost:3001/posts/`, {
             title,
             description: value,
             cat,

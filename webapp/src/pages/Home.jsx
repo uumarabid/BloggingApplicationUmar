@@ -60,7 +60,7 @@ const Home = () => {
 
       {filteredPosts.map((post) => (
         <div key={post.id}>
-          <img src={post.img} alt="ipsum img" />
+          <img src={`../public/upload/${post.img}`} alt="ipsum img" />
 
           <Link to={`/post/${post.id}`}>
             <h2>{post.title}</h2>

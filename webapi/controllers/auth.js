@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 export const register = (req, res) => {
   //check existing user
-  const selectQuery = "SELECT * FROM users WHERE `email` IS NULL OR `username` = ?";
+  const selectQuery = "SELECT * FROM users WHERE `email` = NULL OR `username` = ?";
   // console.log(selectQuery);
 
   db.query(selectQuery, [(req.body.email, req.body.username)], (err, data) => {

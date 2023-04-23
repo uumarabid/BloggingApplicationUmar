@@ -52,7 +52,7 @@ const Single = () => {
         <Grid item xs={6} md={8}>
           <img
             // ? will not give any error while loading
-            src={post.img}
+            src={`../public/upload/${post.img}`}
             alt="new"
             className="post-img"
           />

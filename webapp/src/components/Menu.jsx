@@ -59,7 +59,7 @@ const Menu = ({ cat }) => {
       <h1>You may like these post too</h1>
       {posts.map((post) => (
         <div key={post.id}>
-          <img src={post.img} alt="ipsum img" className="manu-img" />
+          <img src={`../public/upload/${post?.img}`} alt="ipsum img" className="manu-img" />
           <h2>{post.title}</h2>
           <Link to={`/post/${post.id}`}></Link>
           <Button variant="contained" sx={{ mb: 6 }}>
