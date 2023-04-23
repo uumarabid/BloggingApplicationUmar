@@ -15,9 +15,57 @@ import {
 // https://www.npmjs.com/package/react-quill
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
+import moment from "moment";
 
 const Write = () => {
-  const [value, setValue] = useState("");
+  const state = useLocation().state;
+
+  const [value, setValue] = useState(state?.title || "");
+  const [title, setTitle] = useState(state?.description || "");
+  const [file, setFile] = useState(null);
+  const [cat, setCat] = useState(state?.cat || "");
+
+  const navigate = useNavigate();
+
+  const upload = async () => {
+    try {
+      // to upload a file create form data
+      const formData = new FormData();
+      // inside this data padss the file
+      formData.append("file", file);
+      const res = await axios.post("http://localhost:3001/upload/", formData);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    const imgUrl = await upload();
+
+    try {
+      state
+        ? await axios.put(`http://localhost:3001/posts/${state.id}`, {
+            title,
+            description: value,
+            cat,
+            img: file ? imgUrl : "",
+          })
+        : await axios.post(`http://localhost:3001/posts/`, {
+            title,
+            description: value,
+            cat,
+            img: file ? imgUrl : "",
+            date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+          });
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
@@ -32,6 +80,8 @@ const Write = () => {
                 placeholder="Enter tile"
                 label="Title"
                 variant="outlined"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
                 // className="quill-title"
               />
             </Grid>
@@ -52,7 +102,7 @@ const Write = () => {
           <Grid item xs={6} md={12}>
             <FormControl>
               {/* fix this later */}
-              <Input type="file" id="file" name="" />
+              <Input type="file" id="file" name="" onChange={(e) => setFile(e.target.files[0])} />
               <InputLabel htmlFor="file">Upload image</InputLabel>
             </FormControl>
           </Grid>
@@ -61,8 +111,8 @@ const Write = () => {
             <Button type="submit" variant="contained" sx={{ m: 3 }}>
               Save as a draft
             </Button>
-            <Button type="submit" variant="contained">
-              Update
+            <Button type="submit" variant="contained" onClick={handleClick}>
+              Publish
             </Button>
           </Grid>
 
@@ -70,12 +120,52 @@ const Write = () => {
 
           <FormControl>
             <FormLabel id="demo-radio-buttons-group-label">Category</FormLabel>
-            <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="programmer" name="cat">
-              <FormControlLabel value="programmer" control={<Radio />} label="Programmer" id="programmer" />
-              <FormControlLabel value="AWS" control={<Radio />} label="AWS" id="AWS" />
-              <FormControlLabel value="GCP" control={<Radio />} label="GCP" id="GCP" />
-              <FormControlLabel value="AZUR" control={<Radio />} label="AZUR" id="AZUR" />
-              <FormControlLabel value="opersys" control={<Radio />} label="Operating system" id="opersys" />
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="programmer"
+              name="cat"
+              onChange={(e) => setCat(e.target.value)}
+            >
+              <FormControlLabel
+                value="programmer"
+                control={<Radio />}
+                checked={cat === "programmer"}
+                label="Programmer"
+                id="programmer"
+                onChange={(e) => setCat(e.target.value)}
+              />
+              <FormControlLabel
+                value="AWS"
+                control={<Radio />}
+                checked={cat === "AWS"}
+                label="AWS"
+                id="AWS"
+                onChange={(e) => setCat(e.target.value)}
+              />
+              <FormControlLabel
+                value="GCP"
+                control={<Radio />}
+                checked={cat === "GCP"}
+                label="GCP"
+                id="GCP"
+                onChange={(e) => setCat(e.target.value)}
+              />
+              <FormControlLabel
+                value="AZUR"
+                control={<Radio />}
+                checked={cat === "AZUR"}
+                label="AZUR"
+                id="AZUR"
+                onChange={(e) => setCat(e.target.value)}
+              />
+              <FormControlLabel
+                value="OperatingSystem"
+                control={<Radio />}
+                checked={cat === "OperatingSystem"}
+                label="Operating system"
+                id="OperatingSystem"
+                onChange={(e) => setCat(e.target.value)}
+              />
             </RadioGroup>
           </FormControl>
         </Grid>

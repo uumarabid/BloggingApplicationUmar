@@ -58,10 +58,10 @@ function App() {
     <div className="App">
       {/* https://mui.com/material-ui/getting-started/installation/ */}
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Container component="main" width="auto">
-          <RouterProvider router={router} />
-        </Container>
+        {/* <CssBaseline /> */}
+        {/* <Container component="main" width="auto"> */}
+        <RouterProvider router={router} />
+        {/* </Container> */}
       </ThemeProvider>
     </div>
   );

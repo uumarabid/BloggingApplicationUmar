@@ -1,9 +1,37 @@
 import { Button, FormControl, Grid, Paper, TextField } from "@mui/material";
 import { Container } from "@mui/system";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Register = () => {
+  const [inputs, setInputs] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const [err, setError] = useState(null);
+
+  // https://reactrouter.com/en/main/hooks/use-navigate
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const handleSubmit = async (e) => {
+    //prevent from refreshing on click
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:3001/auth/register", inputs);
+      navigate("/login");
+    } catch (err) {
+      // console.log(err);
+      setError(err.response.data);
+    }
+
+    // console.log(res);
+  };
   return (
     <Container component="main" maxWidth="xs">
       <Paper variant="outlined" backgound="dark" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
@@ -20,11 +48,20 @@ const Register = () => {
                 placeholder="Enter username"
                 label="Username"
                 variant="outlined"
+                onChange={handleChange}
               />
             </Grid>
 
             <Grid item xs={12}>
-              <TextField type="email" id="email" name="email" placeholder="Enter your email" label="Email" variant="outlined" />
+              <TextField
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                label="Email"
+                variant="outlined"
+                onChange={handleChange}
+              />
             </Grid>
 
             <Grid item xs={12}>
@@ -35,14 +72,21 @@ const Register = () => {
                 placeholder="Enter password"
                 label="Password"
                 variant="outlined"
+                onChange={handleChange}
               />
             </Grid>
 
             <Grid item xs={12}>
-              <Button type="submit" variant="contained">
+              <Button type="submit" variant="contained" onClick={handleSubmit}>
                 Register
               </Button>
             </Grid>
+
+            {/* fix this */}
+            <Grid item xs={12}>
+              {err && <span>{err}</span>}
+            </Grid>
+
             <Grid item xs={12}>
               <span>
                 Already have an account? <Link to={"/login"}>Login</Link>

@@ -1,9 +1,42 @@
 import { Button, FormControl, Grid, Paper, TextField } from "@mui/material";
 import { Container } from "@mui/system";
-import React from "react";
-import { Link } from "react-router-dom";
+// import axios from "axios";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext.js";
 
 const Login = () => {
+  const [inputs, setInputs] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [err, setError] = useState(null);
+
+  // https://reactrouter.com/en/main/hooks/use-navigate
+  const navigate = useNavigate();
+
+  // call login function here
+  const { login } = useContext(AuthContext);
+
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const handleSubmit = async (e) => {
+    //prevent from refreshing on click
+    e.preventDefault();
+    try {
+      // login function from authContext
+      await login(inputs);
+      // await axios.post("http://localhost:3001/auth/login", inputs);
+      navigate("/");
+    } catch (err) {
+      // console.log(err);
+      setError(err.response.data);
+    }
+
+    // console.log(res);
+  };
   return (
     <Container component="main" maxWidth="xs">
       <Paper variant="outlined" backgound="dark" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
@@ -20,6 +53,7 @@ const Login = () => {
                 placeholder="Enter your username"
                 label="Username"
                 variant="outlined"
+                onChange={handleChange}
               />
             </Grid>
 
@@ -31,14 +65,21 @@ const Login = () => {
                 placeholder="Enter your password"
                 label="Password"
                 variant="outlined"
+                onChange={handleChange}
               />
             </Grid>
 
             <Grid item xs={12}>
-              <Button type="submit" variant="contained">
+              <Button type="submit" variant="contained" onClick={handleSubmit}>
                 Login
               </Button>
             </Grid>
+
+            {/* fix this */}
+            <Grid item xs={12}>
+              {err && <span>{err}</span>}
+            </Grid>
+
             <Grid item xs={12}>
               <span>
                 Don't have an account? <Link to={"/register"}>Register</Link>
