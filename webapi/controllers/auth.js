@@ -53,14 +53,14 @@ export const login = (req, res) => {
 
     // return user information and send the token as a cookie
     res
-      .cookie("access_token", token, {
-        // extra security, anny script in the browser or application can not access this cookie directly
-        httpOnly: true,
-      })
+      // .cookie("access_token", token, {
+      //   // extra security, anny script in the browser or application can not access this cookie directly
+      //   httpOnly: true,
+      // })
       // thsi approch includes password in the data, used second approach
       // .status(200).json(data[0]);
       .status(200)
-      .json(other);
+      .json({ token, ...other });
   });
 };
 

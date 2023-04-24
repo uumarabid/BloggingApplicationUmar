@@ -21,6 +21,7 @@ const Single = () => {
 
   // dissplay edit and delete button only to the owner of the post
   const { currentUser } = useContext(AuthContext);
+  axios.defaults.headers.common["Authorization"] = `Bearer ${currentUser.token}`;
 
   // create a async function inside use efffect
   useEffect(() => {

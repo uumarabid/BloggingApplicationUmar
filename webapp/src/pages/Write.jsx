@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+
 import {
   Grid,
   Paper,
@@ -18,6 +19,7 @@ import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
+import { AuthContext } from "../context/authContext";
 
 const Write = () => {
   const state = useLocation().state;
@@ -28,6 +30,9 @@ const Write = () => {
   const [cat, setCat] = useState(state?.cat || "");
 
   const navigate = useNavigate();
+
+  const { currentUser } = useContext(AuthContext);
+  axios.defaults.headers.common["Authorization"] = `Bearer ${currentUser.token}`;
 
   const upload = async () => {
     try {

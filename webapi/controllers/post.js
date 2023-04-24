@@ -29,8 +29,9 @@ export const getPost = (req, res) => {
 };
 
 export const addPost = (req, res) => {
-  const token = req.cookies.access_token;
-  if (!token) return res.status(401).json("Not authenticated!");
+  const token = req.headers.authorization.split(" ")[1];
+  // const token = req.cookies.access_token;
+  // if (!token) return res.status(401).json("Not authenticated!");
 
   // verify token if its valid or not
   // userinfo => auth => const token = jwt.sign({ id: data[0].id }, "jwtkey");
@@ -48,9 +49,11 @@ export const addPost = (req, res) => {
 };
 
 export const deletePost = (req, res) => {
+  const token = req.headers.authorization.split(" ")[1];
+
   // check json web token first in cookies & post not belongs to user => cannot delete post
-  const token = req.cookies.access_token;
-  if (!token) return res.status(401).json("Not authenticated!");
+  // const token = req.cookies.access_token;
+  // if (!token) return res.status(401).json("Not authenticated!");
 
   // verify token if its valid or not
   // userinfo => auth => const token = jwt.sign({ id: data[0].id }, "jwtkey");
@@ -72,8 +75,10 @@ export const deletePost = (req, res) => {
 };
 
 export const updatePost = (req, res) => {
-  const token = req.cookies.access_token;
-  if (!token) return res.status(401).json("Not authenticated!");
+  const token = req.headers.authorization.split(" ")[1];
+
+  // const token = req.cookies.access_token;
+  // if (!token) return res.status(401).json("Not authenticated!");
 
   // verify token if its valid or not
   // userinfo => auth => const token = jwt.sign({ id: data[0].id }, "jwtkey");
