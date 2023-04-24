@@ -46,6 +46,7 @@ export const login = (req, res) => {
     // store this token in web cookie to match the author of the post
     // https://www.npmjs.com/package/jsonwebtoken
     const token = jwt.sign({ id: data[0].id }, "jwtkey");
+    console.log(token);
 
     // separate password from other info
     const { password, ...other } = data[0];
