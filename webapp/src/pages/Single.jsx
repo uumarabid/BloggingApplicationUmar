@@ -47,6 +47,11 @@ const Single = () => {
     }
   };
 
+  const getText = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
+  };
+
   return (
     <Paper id="maincontent" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
       <Grid container spacing={2}>
@@ -81,7 +86,7 @@ const Single = () => {
 
           <h1>{post.title}</h1>
 
-          <p>{post.description}</p>
+          <p>{getText(post.description)}</p>
         </Grid>
 
         <Grid item xs={6} md={4}>

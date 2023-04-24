@@ -37,6 +37,11 @@ const Home = () => {
     setFilteredPosts(filteredPosts);
   };
 
+  const getText = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
+  };
+
   return (
     <div>
       {/* <Paper id="maincontent" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}> */}
@@ -65,7 +70,7 @@ const Home = () => {
           <Link to={`/post/${post.id}`}>
             <h2>{post.title}</h2>
           </Link>
-          <p>{post.description}</p>
+          <p>{getText(post.description)}</p>
           <Button variant="contained" sx={{ mb: 2 }}>
             Read more
           </Button>
