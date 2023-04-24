@@ -46,7 +46,7 @@ const upload = multer({ storage });
 
 // const upload = multer({ dest: "./uploads/" });
 
-app.post("/webapi/upload/", upload.single("file"), function (req, res) {
+app.post("/upload", upload.single("file"), function (req, res) {
   const file = req.file;
   res.status(200).json(file.filename);
 });

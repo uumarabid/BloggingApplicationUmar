@@ -35,16 +35,22 @@ const Write = () => {
   axios.defaults.headers.common["Authorization"] = `Bearer ${currentUser.token}`;
 
   const upload = async () => {
-    try {
-      // to upload a file create form data
-      const formData = new FormData();
-      // inside this data padss the file
-      formData.append("file", file);
-      const res = await axios.post("http://localhost:3001/upload/", formData);
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
+    return new Promise((resolve, reject) => {
+      try {
+        // to upload a file create form data
+        const formData = new FormData();
+        // inside this data padss the file
+        formData.append("file", file);
+        const res = axios
+          .post("http://localhost:3001/upload", formData)
+          .then((res) => {
+            resolve(res.data);
+          })
+          .catch((err) => reject(err));
+      } catch (err) {
+        reject(err);
+      }
+    });
   };
 
   const handleClick = async (e) => {
@@ -57,13 +63,13 @@ const Write = () => {
             title,
             description: value,
             cat,
-            img: file ? imgUrl : "",
+            img: imgUrl ?? "",
           })
         : await axios.post(`http://localhost:3001/posts/`, {
             title,
             description: value,
             cat,
-            img: file ? imgUrl : "",
+            img: imgUrl ?? "",
             date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
           });
       navigate("/");
