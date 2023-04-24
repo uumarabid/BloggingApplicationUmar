@@ -60,7 +60,7 @@ export const deletePost = (req, res) => {
     // if token is valid then delete the post
     // take post id first
     const postId = req.params.id;
-    const deleteQuery = "DELETE FROM posts WHERE `id` = ? AND `uid` = ?";
+    const deleteQuery = "DELETE FROM posts WHERE `id` = ? AND `userId` = ?";
 
     db.query(deleteQuery, [postId, userInfo.id], (err, data) => {
       if (err) return res.status(403).json("You can delete only your post!");

@@ -5,7 +5,7 @@ import { createContext, useEffect, useState } from "react"; // https://www.freec
 export const AuthContext = createContext();
 
 // childern app component
-export const AuthContextProvider = ({ children }) => {
+export const AuthContexProvider = ({ children }) => {
   // if there is a user in local storage use it & no user it means not loged in then its null
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
 

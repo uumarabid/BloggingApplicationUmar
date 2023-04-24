@@ -39,14 +39,14 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
 // https://www.npmjs.com/package/multer
 // use multer for save img on server
 
 // const upload = multer({ dest: "./uploads/" });
 
-app.post("/upload/", upload.single("file"), function (req, res) {
+app.post("/webapi/upload/", upload.single("file"), function (req, res) {
   const file = req.file;
   res.status(200).json(file.filename);
 });
