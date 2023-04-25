@@ -25,6 +25,10 @@ const Navbar = () => {
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
 
+          <a href="#mainContent" className="skip-link">
+            Skip Navigation
+          </a>
+
           <Button color="inherit">
             <Link to="/?cat=programming" className="navbar-link">
               Programming

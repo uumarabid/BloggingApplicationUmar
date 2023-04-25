@@ -88,3 +88,17 @@ span {
   margin-right: 5px;
   text-transform: capitalize;
 }
+
+.skip-link {
+  background: #61dafb;
+  left: 50%;
+  padding: 8px;
+  position: absolute;
+  transform: translateY(-170%);
+  transition: transform 0.3s;
+  z-index: 1;
+}
+
+.skip-link:focus {
+  transform: translateY(0%);
+}
