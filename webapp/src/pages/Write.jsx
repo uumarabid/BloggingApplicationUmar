@@ -81,9 +81,9 @@ const Write = () => {
   return (
     <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
       <Grid container rowSpacing={2}>
-        <Grid item xs={6} md={8}>
+        <Grid item xs={12} md={8}>
           <FormControl id="mainContent" fullWidth sx={{ mb: 1 }}>
-            <Grid item xs={6} md={4}>
+            <Grid item xs={6} md={2}>
               <TextField
                 type="text"
                 id="title"
@@ -105,16 +105,17 @@ const Write = () => {
 
         <Grid item xs={6} md={4}>
           <h1>Publish</h1>
-          <Grid item xs={6} md={12}>
+          {/* <Grid item xs={3} md={6} lg={6}>
             <p>Status: Draft</p>
             <p>Visibility: Public</p>
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={6} md={12}>
             <FormControl>
               {/* fix this later */}
-              <Input type="file" id="file" name="" onChange={(e) => setFile(e.target.files[0])} />
-              <InputLabel htmlFor="file">Upload image</InputLabel>
+              {/* <InputLabel htmlFor="file">Upload image</InputLabel> */}
+
+              <Input type="file" id="file" name="" label="file" onChange={(e) => setFile(e.target.files[0])} />
             </FormControl>
           </Grid>
 
