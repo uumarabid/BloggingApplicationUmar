@@ -65,15 +65,18 @@ const Home = () => {
 
       {filteredPosts.map((post) => (
         <div key={post.id}>
-          <img src={`http://localhost:3000/upload/${post.img}`} alt="ipsum img" />
+          <img src={`http://localhost:3000/upload/${post.img}`} alt={post.title} />
+
+          {/* <Link to={`/post/${post.id}`}> */}
+          <h2>{post.title}</h2>
+          {/* </Link> */}
+          <p>{getText(post.description)}</p>
 
           <Link to={`/post/${post.id}`}>
-            <h2>{post.title}</h2>
+            <Button variant="contained" sx={{ mb: 2 }}>
+              Read more
+            </Button>
           </Link>
-          <p>{getText(post.description)}</p>
-          <Button variant="contained" sx={{ mb: 2 }}>
-            Read more
-          </Button>
         </div>
       ))}
       {/* </Paper> */}

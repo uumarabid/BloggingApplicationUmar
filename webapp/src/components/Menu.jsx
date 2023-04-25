@@ -61,10 +61,11 @@ const Menu = ({ cat }) => {
         <div key={post.id}>
           <img src={`http://localhost:3000/upload/${post.img}`} alt={post.title} className="manu-img" />
           <h2>{post.title}</h2>
-          <Link to={`/post/${post.id}`}></Link>
-          <Button variant="contained" sx={{ mb: 6 }}>
-            Read more
-          </Button>
+          <Link to={`/post/${post.id}`}>
+            <Button variant="contained" sx={{ mb: 6 }}>
+              Read more
+            </Button>
+          </Link>
         </div>
       ))}
     </Paper>

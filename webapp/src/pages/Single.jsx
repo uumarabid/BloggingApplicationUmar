@@ -56,15 +56,10 @@ const Single = () => {
     <Paper id="maincontent" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
       <Grid container spacing={2}>
         <Grid item xs={6} md={8}>
-          <img
-            // ? will not give any error while loading
-            src={`http://localhost:3000/upload/${post.img}`}
-            alt="new"
-            className="post-img"
-          />
+          <img src={`http://localhost:3000/upload/${post.img}`} alt={post.title} className="post-img" />
           <Grid item xs={6} md={6}>
             <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", ml: 3 }}>
-              {post.userImg && <img src={post.userImg} alt="new" className="user-img " />}
+              {post.userImg && <img src={post.userImg} alt={post.userImg} className="user-img " />}
 
               <span>{post.username}</span>
 
