@@ -2,7 +2,7 @@ import { Button, FormControl, Grid, Paper, TextField } from "@mui/material";
 import { Container } from "@mui/system";
 // import axios from "axios";
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext.js";
 
 const Login = () => {
@@ -73,6 +73,13 @@ const Login = () => {
               <Button type="submit" variant="contained" onClick={handleSubmit}>
                 Login
               </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <Link to={"/"}>
+                <Button type="submit" variant="contained">
+                  Cancel
+                </Button>
+              </Link>
             </Grid>
 
             {/* fix this */}
