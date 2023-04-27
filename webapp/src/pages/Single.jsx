@@ -66,7 +66,7 @@ const Single = () => {
               {/* moment library */}
               <p>Posted {moment(post.date).fromNow()}</p>
 
-              {currentUser.username === post.username && (
+              {currentUser && currentUser.username === post.username && (
                 <>
                   <Link to={"/write?edit=2"} state={post}>
                     <EditIcon />

@@ -45,7 +45,7 @@ const Home = () => {
   return (
     <div>
       {/* <Paper id="maincontent" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}> */}
-      <h1>Welcome programmers</h1>
+      <h1>Welcome to the blogging app</h1>
       <Grid container rowSpacing={2}>
         <Grid item xs={8}></Grid>
         <Grid item xs={4}>
