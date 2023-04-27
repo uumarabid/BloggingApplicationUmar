@@ -37,7 +37,7 @@ const Register = () => {
       <Paper variant="outlined" backgound="dark" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
         <FormControl>
           <legend>
-            <h1>Welcome to Register page</h1>
+            <h1>Welcome to the Registration page</h1>
           </legend>
           <Grid container rowSpacing={2}>
             <Grid item xs={12}>

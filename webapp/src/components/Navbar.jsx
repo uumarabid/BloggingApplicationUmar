@@ -62,7 +62,7 @@ const Navbar = () => {
           <Button color="inherit">
             <Link to="/" className="navbar-link">
               {currentUser ? (
-                <span onClick={logout}>Lougout</span>
+                <span onClick={logout}>Logout</span>
               ) : (
                 <Link to={"/login"} className="navbar-link">
                   Login

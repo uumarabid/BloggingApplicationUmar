@@ -134,16 +134,16 @@ const Write = () => {
             <FormLabel id="demo-radio-buttons-group-label">Category</FormLabel>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="programmer"
+              defaultValue="programming"
               name="cat"
               onChange={(e) => setCat(e.target.value)}
             >
               <FormControlLabel
-                value="programmer"
+                value="programming"
                 control={<Radio />}
-                checked={cat === "programmer"}
-                label="Programmer"
-                id="programmer"
+                checked={cat === "programming"}
+                label="Programming"
+                id="programming"
                 onChange={(e) => setCat(e.target.value)}
               />
               <FormControlLabel
