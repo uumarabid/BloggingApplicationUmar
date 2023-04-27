@@ -56,7 +56,7 @@ const Navbar = () => {
           </Button>
           <Button color="inherit">
             <Link to="/" className="navbar-link">
-              <span>{currentUser?.username}</span>
+              <span>{currentUser && currentUser.username}</span>
             </Link>
           </Button>
           <Button color="inherit">
@@ -69,11 +69,13 @@ const Navbar = () => {
                 </Link>
               )}
             </Link>
-          </Button>
-          <Button color="inherit">
-            <Link to="/write" className="navbar-link">
-              Write blog
-            </Link>
+            {currentUser && (
+              <Button color="inherit">
+                <Link to="/write" className="navbar-link">
+                  Write blog
+                </Link>
+              </Button>
+            )}
           </Button>
         </Toolbar>
       </AppBar>
