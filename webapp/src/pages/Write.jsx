@@ -105,25 +105,15 @@ const Write = () => {
 
         <Grid item xs={6} md={4}>
           <h1>Publish</h1>
-          {/* <Grid item xs={3} md={6} lg={6}>
-            <p>Status: Draft</p>
-            <p>Visibility: Public</p>
-          </Grid> */}
 
           <Grid item xs={6} md={12}>
             <FormControl>
-              {/* fix this later */}
-              {/* <InputLabel htmlFor="file">Upload image</InputLabel> */}
-
               <Input type="file" id="file" name="" label="file" onChange={(e) => setFile(e.target.files[0])} />
             </FormControl>
           </Grid>
 
           <Grid item xs={12}>
-            <Button type="submit" variant="contained" sx={{ m: 3 }}>
-              Save as a draft
-            </Button>
-            <Button type="submit" variant="contained" onClick={handleClick}>
+            <Button type="submit" variant="contained" sx={{ m: 3 }} onClick={handleClick}>
               Publish
             </Button>
           </Grid>
