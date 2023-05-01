@@ -37,10 +37,15 @@ const Home = () => {
     setFilteredPosts(filteredPosts);
   };
 
+  const getText = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
+  };
+
   return (
     <div>
       {/* <Paper id="maincontent" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}> */}
-      <h1>Welcome programmers</h1>
+      <h1>Welcome to the blogging app</h1>
       <Grid container rowSpacing={2}>
         <Grid item xs={8}></Grid>
         <Grid item xs={4}>
@@ -60,15 +65,18 @@ const Home = () => {
 
       {filteredPosts.map((post) => (
         <div key={post.id}>
-          <img src={`../public/upload/${post.img}`} alt="ipsum img" />
+          <img id="mainContent" src={`http://localhost:3000/upload/${post.img}`} alt={post.title} />
+
+          {/* <Link to={`/post/${post.id}`}> */}
+          <h2>{post.title}</h2>
+          {/* </Link> */}
+          <p>{getText(post.description)}</p>
 
           <Link to={`/post/${post.id}`}>
-            <h2>{post.title}</h2>
+            <Button variant="contained" sx={{ mb: 2 }}>
+              Read more
+            </Button>
           </Link>
-          <p>{post.description}</p>
-          <Button variant="contained" sx={{ mb: 2 }}>
-            Read more
-          </Button>
         </div>
       ))}
       {/* </Paper> */}

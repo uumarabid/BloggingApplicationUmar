@@ -25,6 +25,10 @@ const Navbar = () => {
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
 
+          <a href="#mainContent" className="skip-link">
+            Skip Navigation
+          </a>
+
           <Button color="inherit">
             <Link to="/?cat=programming" className="navbar-link">
               Programming
@@ -52,24 +56,26 @@ const Navbar = () => {
           </Button>
           <Button color="inherit">
             <Link to="/" className="navbar-link">
-              <span>{currentUser?.username}</span>
+              <span>{currentUser && currentUser.username}</span>
             </Link>
           </Button>
           <Button color="inherit">
             <Link to="/" className="navbar-link">
               {currentUser ? (
-                <span onClick={logout}>Lougout</span>
+                <span onClick={logout}>Logout</span>
               ) : (
                 <Link to={"/login"} className="navbar-link">
                   Login
                 </Link>
               )}
             </Link>
-          </Button>
-          <Button color="inherit">
-            <Link to="/write" className="navbar-link">
-              Write blog
-            </Link>
+            {currentUser && (
+              <Button color="inherit">
+                <Link to="/write" className="navbar-link">
+                  Write blog
+                </Link>
+              </Button>
+            )}
           </Button>
         </Toolbar>
       </AppBar>

@@ -1,4 +1,4 @@
-import { Button, Paper } from "@mui/material";
+import { Button, Card, Paper } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -55,19 +55,22 @@ const Menu = ({ cat }) => {
   // ];
   return (
     // fix styling later
-    <Paper id="maincontent" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-      <h1>You may like these post too</h1>
+    // <Paper id="maincontent" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+    <Card>
+      <h1>You may like these posts too</h1>
       {posts.map((post) => (
         <div key={post.id}>
-          <img src={`../public/upload/${post?.img}`} alt="ipsum img" className="manu-img" />
+          <img src={`http://localhost:3000/upload/${post.img}`} alt={post.title} className="manu-img" />
           <h2>{post.title}</h2>
-          <Link to={`/post/${post.id}`}></Link>
-          <Button variant="contained" sx={{ mb: 6 }}>
-            Read more
-          </Button>
+          <Link to={`/post/${post.id}`}>
+            <Button variant="contained" sx={{ mb: 6 }}>
+              Read more
+            </Button>
+          </Link>
         </div>
       ))}
-    </Paper>
+    </Card>
+    // </Paper>
   );
 };
 

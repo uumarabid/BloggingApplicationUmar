@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+
 import {
   Grid,
   Paper,
@@ -18,28 +19,38 @@ import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
+import { AuthContext } from "../context/authContext";
 
 const Write = () => {
   const state = useLocation().state;
 
-  const [value, setValue] = useState(state?.title || "");
-  const [title, setTitle] = useState(state?.description || "");
+  const [value, setValue] = useState(state?.description || "");
+  const [title, setTitle] = useState(state?.title || "");
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState(state?.cat || "");
 
   const navigate = useNavigate();
 
+  const { currentUser } = useContext(AuthContext);
+  axios.defaults.headers.common["Authorization"] = `Bearer ${currentUser?.token || ""}`;
+
   const upload = async () => {
-    try {
-      // to upload a file create form data
-      const formData = new FormData();
-      // inside this data padss the file
-      formData.append("file", file);
-      const res = await axios.post("http://localhost:3001/upload/", formData);
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
+    return new Promise((resolve, reject) => {
+      try {
+        // to upload a file create form data
+        const formData = new FormData();
+        // inside this data padss the file
+        formData.append("file", file);
+        const res = axios
+          .post("http://localhost:3001/upload", formData)
+          .then((res) => {
+            resolve(res.data);
+          })
+          .catch((err) => reject(err));
+      } catch (err) {
+        reject(err);
+      }
+    });
   };
 
   const handleClick = async (e) => {
@@ -52,13 +63,13 @@ const Write = () => {
             title,
             description: value,
             cat,
-            img: file ? imgUrl : "",
+            img: imgUrl ?? "",
           })
         : await axios.post(`http://localhost:3001/posts/`, {
             title,
             description: value,
             cat,
-            img: file ? imgUrl : "",
+            img: imgUrl ?? "",
             date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
           });
       navigate("/");
@@ -70,9 +81,9 @@ const Write = () => {
   return (
     <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
       <Grid container rowSpacing={2}>
-        <Grid item xs={6} md={8}>
-          <FormControl fullWidth sx={{ mb: 1 }}>
-            <Grid item xs={6} md={4}>
+        <Grid item xs={12} md={8}>
+          <FormControl id="mainContent" fullWidth sx={{ mb: 1 }}>
+            <Grid item xs={6} md={2}>
               <TextField
                 type="text"
                 id="title"
@@ -94,24 +105,15 @@ const Write = () => {
 
         <Grid item xs={6} md={4}>
           <h1>Publish</h1>
-          <Grid item xs={6} md={12}>
-            <p>Status: Draft</p>
-            <p>Visibility: Public</p>
-          </Grid>
 
           <Grid item xs={6} md={12}>
             <FormControl>
-              {/* fix this later */}
-              <Input type="file" id="file" name="" onChange={(e) => setFile(e.target.files[0])} />
-              <InputLabel htmlFor="file">Upload image</InputLabel>
+              <Input type="file" id="file" name="" label="file" onChange={(e) => setFile(e.target.files[0])} />
             </FormControl>
           </Grid>
 
           <Grid item xs={12}>
-            <Button type="submit" variant="contained" sx={{ m: 3 }}>
-              Save as a draft
-            </Button>
-            <Button type="submit" variant="contained" onClick={handleClick}>
+            <Button type="submit" variant="contained" sx={{ m: 3 }} onClick={handleClick}>
               Publish
             </Button>
           </Grid>
@@ -122,16 +124,16 @@ const Write = () => {
             <FormLabel id="demo-radio-buttons-group-label">Category</FormLabel>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="programmer"
+              defaultValue="programming"
               name="cat"
               onChange={(e) => setCat(e.target.value)}
             >
               <FormControlLabel
-                value="programmer"
+                value="programming"
                 control={<Radio />}
-                checked={cat === "programmer"}
-                label="Programmer"
-                id="programmer"
+                checked={cat === "programming"}
+                label="Programming"
+                id="programming"
                 onChange={(e) => setCat(e.target.value)}
               />
               <FormControlLabel

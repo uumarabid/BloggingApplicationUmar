@@ -21,6 +21,7 @@ const Single = () => {
 
   // dissplay edit and delete button only to the owner of the post
   const { currentUser } = useContext(AuthContext);
+  axios.defaults.headers.common["Authorization"] = `Bearer ${currentUser?.token || ""}`;
 
   // create a async function inside use efffect
   useEffect(() => {
@@ -46,26 +47,26 @@ const Single = () => {
     }
   };
 
+  const getText = (html) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return doc.body.textContent;
+  };
+
   return (
     <Paper id="maincontent" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
       <Grid container spacing={2}>
         <Grid item xs={6} md={8}>
-          <img
-            // ? will not give any error while loading
-            src={`../public/upload/${post.img}`}
-            alt="new"
-            className="post-img"
-          />
+          <img id="mainContent" src={`http://localhost:3000/upload/${post.img}`} alt={post.title} className="post-img" />
           <Grid item xs={6} md={6}>
             <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", ml: 3 }}>
-              {post.userImg && <img src={post.userImg} alt="new" className="user-img " />}
+              {post.userImg && <img src={post.userImg} alt={post.userImg} className="user-img " />}
 
               <span>{post.username}</span>
 
               {/* moment library */}
               <p>Posted {moment(post.date).fromNow()}</p>
 
-              {currentUser.username === post.username && (
+              {currentUser && currentUser.username === post.username && (
                 <>
                   <Link to={"/write?edit=2"} state={post}>
                     <EditIcon />
@@ -80,7 +81,7 @@ const Single = () => {
 
           <h1>{post.title}</h1>
 
-          <p>{post.description}</p>
+          <p>{getText(post.description)}</p>
         </Grid>
 
         <Grid item xs={6} md={4}>
